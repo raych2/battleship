@@ -1,19 +1,18 @@
 const Ship = (length) => {
-  let hits = Array(length).fill('');
+  let direction;
+  let location = [];
+  let hits = [];
   const hit = (num) => {
-    for (let i = 0; i < hits.length; i++) {
-      if (i === num) {
-        hits[num] = 'X';
-        return hits;
-      }
-    }
+    hits.push(num);
+    return hits;
   };
   const isSunk = () => {
-    if (hits.every((space) => (space = 'X'))) {
+    if (hits.length === length) {
       return true;
     }
+    return false;
   };
-  return { length, hits, hit, isSunk };
+  return { length, direction, location, hits, hit, isSunk };
 };
 
 export default Ship;
