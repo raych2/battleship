@@ -1,4 +1,5 @@
 import Ship from '../factories/Ship';
+import getRandomCoordinate from '../helpers/getRandomCoordinate';
 
 const Gameboard = () => {
   let board = Array.from({ length: 100 }, (v, i) => i);
@@ -22,11 +23,6 @@ const Gameboard = () => {
       fleet.push(newShip);
     });
     return fleet;
-  };
-  const getRandomCoordinate = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
   };
   //prevent horizontal ships from going off board
   const checkForHorizontalRestrictions = (length, num) => {
@@ -83,7 +79,6 @@ const Gameboard = () => {
     }
     return false;
   };
-
   const placeShip = () => {
     let temp;
     for (let ship of fleet) {
@@ -97,7 +92,6 @@ const Gameboard = () => {
     }
     return fleet;
   };
-
   const receiveAttack = (coords) => {
     for (let ship of fleet) {
       for (let i = 0; i < ship.location.length; i++) {
@@ -124,7 +118,6 @@ const Gameboard = () => {
     missedAttacks,
     renderBoard,
     createFleet,
-    getRandomCoordinate,
     checkForHorizontalRestrictions,
     checkForVerticalRestrictions,
     assignShipLocation,

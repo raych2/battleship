@@ -14,13 +14,6 @@ describe('createFleet', () => {
     expect(newBoard.fleet).toHaveLength(5);
   });
 });
-describe('getRandomCoordinate', () => {
-  test('returns random coordinate', () => {
-    let newBoard = Gameboard();
-    expect(newBoard.getRandomCoordinate(0, 99)).toBeGreaterThanOrEqual(0);
-    expect(newBoard.getRandomCoordinate(0, 99)).toBeLessThanOrEqual(99);
-  });
-});
 describe('checkForHorizontalRestrictions', () => {
   let newBoard = Gameboard();
   test('changes initialPosition if the length is 2 and initialPosition is number in last grid column', () => {
