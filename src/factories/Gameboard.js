@@ -2,7 +2,7 @@ import Ship from '../factories/Ship';
 import getRandomCoordinate from '../helpers/getRandomCoordinate';
 
 const Gameboard = () => {
-  let board = Array.from({ length: 100 }, (v, i) => i);
+  let board = Array(100).fill('');
   let shipType = [
     { name: 'patrolBoat', length: 2 },
     { name: 'submarine', length: 3 },
@@ -24,13 +24,56 @@ const Gameboard = () => {
     });
     return fleet;
   };
+  //split grid into coordinate groups to help with validation
+  let grid = Array.from({ length: 100 }, (v, i) => i);
+  let gridHalves = [];
+  let rightHalf = [];
+  let leftHalf = [];
+  const splitGrid = (num) => {
+    for (let i = 0; i < grid.length; i += num) {
+      gridHalves.push(grid.slice(i, i + num));
+    }
+    return gridHalves;
+  };
+  splitGrid(5);
+
+  const getAllLeftHalfNums = () => {
+    for (let i = 0; i < gridHalves.length; i += 2) {
+      if (leftHalf.length < 10) {
+        leftHalf.push(gridHalves[i]);
+      }
+    }
+    leftHalf = leftHalf.flat();
+    return leftHalf;
+  };
+  const getAllRightHalfNums = () => {
+    for (let i = 1; i < gridHalves.length; i += 2) {
+      if (rightHalf.length < 10) {
+        rightHalf.push(gridHalves[i]);
+      }
+    }
+    rightHalf = rightHalf.flat();
+    return rightHalf;
+  };
+  getAllLeftHalfNums();
+  getAllRightHalfNums();
+
+  const shuffleLeftHalf = () => {
+    let num;
+    for (let i = leftHalf.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      let temp = leftHalf[i];
+      leftHalf[i] = leftHalf[j];
+      leftHalf[j] = temp;
+      num = leftHalf[j];
+    }
+    return num;
+  };
+
   //prevent horizontal ships from going off board
-  const checkForHorizontalRestrictions = (length, num) => {
-    let lastColumn = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99];
-    if (lastColumn.includes(num) && length === 2) {
-      num = getRandomCoordinate(0, 98);
-    } else if (lastColumn.includes(num) || (length <= 5 && length >= 3)) {
-      num = getRandomCoordinate(0, 94);
+  const checkForHorizontalRestrictions = (num) => {
+    if (rightHalf.includes(num)) {
+      shuffleLeftHalf();
     }
     return num;
   };
@@ -53,10 +96,9 @@ const Gameboard = () => {
     let initialPosition;
     let shipLocation = [];
     if (direction === 'horizontal') {
-      initialPosition = getRandomCoordinate(0, 98);
-      checkForHorizontalRestrictions(length, initialPosition);
+      initialPosition = shuffleLeftHalf();
     } else {
-      initialPosition = getRandomCoordinate(0, 98);
+      initialPosition = getRandomCoordinate(0, 89);
       checkForVerticalRestrictions(length, initialPosition);
     }
     for (let i = 0; i < length; i++) {
@@ -72,7 +114,7 @@ const Gameboard = () => {
     for (let i = 0; i < arr.length; i++) {
       let ship = arr[i];
       for (let j = 0; j < location.length; j++) {
-        if (ship.location.indexOf(location[j]) >= 0) {
+        if (ship.location.indexOf(location[j]) >= 0 || location[j] > 99) {
           return true;
         }
       }
