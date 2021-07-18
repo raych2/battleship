@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack --config build-utils/webpack.config.js --env env=dev",
+    "start": "webpack --config build-utils/webpack.config.js --env env=dev --watch",
     "build": "webpack --config build-utils/webpack.config.js --env env=prod",
     "test": "jest"
   },

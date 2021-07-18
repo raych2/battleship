@@ -1,0 +1,37 @@
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #000;
+}
+h1 {
+  margin-top: 20px;
+  text-align: center;
+  color: #fff;
+}
+.game-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+.human-board,
+.computer-board {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 1px;
+  height: 450px;
+  width: 450px;
+  margin: 10px auto;
+  text-align: center;
+}
+.empty {
+  background-color: #0077b6;
+}
+.occupied {
+  background-color: #fff;
+}
