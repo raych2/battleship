@@ -26,30 +26,31 @@ const Gameboard = () => {
   };
   //split grid into coordinate groups to help with validation
   let grid = Array.from({ length: 100 }, (v, i) => i);
-  let gridHalves = [];
+  let gridSections = [];
   let rightHalf = [];
   let leftHalf = [];
-  const splitGrid = (num) => {
-    for (let i = 0; i < grid.length; i += num) {
-      gridHalves.push(grid.slice(i, i + num));
+  const splitGrid = (size) => {
+    for (let i = 0; i < grid.length; i += size) {
+      gridSections.push(grid.slice(i, i + size));
     }
-    return gridHalves;
+    gridSections = gridSections.slice(0, 20);
+    return gridSections;
   };
   splitGrid(5);
 
   const getAllLeftHalfNums = () => {
-    for (let i = 0; i < gridHalves.length; i += 2) {
+    for (let i = 0; i < gridSections.length; i += 2) {
       if (leftHalf.length < 10) {
-        leftHalf.push(gridHalves[i]);
+        leftHalf.push(gridSections[i]);
       }
     }
     leftHalf = leftHalf.flat();
     return leftHalf;
   };
   const getAllRightHalfNums = () => {
-    for (let i = 1; i < gridHalves.length; i += 2) {
+    for (let i = 1; i < gridSections.length; i += 2) {
       if (rightHalf.length < 10) {
-        rightHalf.push(gridHalves[i]);
+        rightHalf.push(gridSections[i]);
       }
     }
     rightHalf = rightHalf.flat();
@@ -70,13 +71,6 @@ const Gameboard = () => {
     return num;
   };
 
-  //prevent horizontal ships from going off board
-  const checkForHorizontalRestrictions = (num) => {
-    if (rightHalf.includes(num)) {
-      shuffleLeftHalf();
-    }
-    return num;
-  };
   //prevent vertical ships from going off board
   const checkForVerticalRestrictions = (length, num) => {
     if (length === 5 && num >= 60) {
@@ -96,6 +90,7 @@ const Gameboard = () => {
     let initialPosition;
     let shipLocation = [];
     if (direction === 'horizontal') {
+      //prevent horizontal ships from going off board
       initialPosition = shuffleLeftHalf();
     } else {
       initialPosition = getRandomCoordinate(0, 89);
@@ -158,9 +153,16 @@ const Gameboard = () => {
     fleet,
     sunkenShips,
     missedAttacks,
+    grid,
+    gridSections,
+    leftHalf,
+    rightHalf,
     renderBoard,
     createFleet,
-    checkForHorizontalRestrictions,
+    splitGrid,
+    getAllLeftHalfNums,
+    getAllRightHalfNums,
+    shuffleLeftHalf,
     checkForVerticalRestrictions,
     assignShipLocation,
     checkForOverlap,

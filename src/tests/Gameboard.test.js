@@ -14,23 +14,41 @@ describe('createFleet', () => {
     expect(newBoard.fleet).toHaveLength(5);
   });
 });
-describe('checkForHorizontalRestrictions', () => {
+describe('grid', () => {
   let newBoard = Gameboard();
-  test('changes initialPosition if the length is 2 and initialPosition is number in last grid column', () => {
-    expect(
-      newBoard.checkForHorizontalRestrictions(2, 98)
-    ).toBeGreaterThanOrEqual(0);
-    expect(newBoard.checkForHorizontalRestrictions(2, 98)).toBeLessThanOrEqual(
-      98
-    );
+  test('returns battleship grid array of 100 numbers', () => {
+    expect(newBoard.grid).toHaveLength(100);
   });
-  test('changes initialPosition if the length is greater or equal to 3 and less than or equal to 5 and initialPosition is number in last grid column', () => {
-    expect(
-      newBoard.checkForHorizontalRestrictions(4, 98)
-    ).toBeGreaterThanOrEqual(0);
-    expect(newBoard.checkForHorizontalRestrictions(4, 98)).toBeLessThanOrEqual(
-      94
-    );
+});
+describe('splitGrid', () => {
+  let newBoard = Gameboard();
+  test('splits battleship grid array into sections', () => {
+    expect(newBoard.splitGrid(5)).toHaveLength(20);
+  });
+});
+describe('getAllLeftHalfNums', () => {
+  let newBoard = Gameboard();
+  test('returns all numbers of the left half of the battleship grid', () => {
+    newBoard.splitGrid(5);
+    newBoard.getAllLeftHalfNums();
+    expect(newBoard.leftHalf).toHaveLength(50);
+  });
+});
+describe('getAllRightHalfNums', () => {
+  let newBoard = Gameboard();
+  test('returns all numbers of the right half of the battleship grid', () => {
+    newBoard.splitGrid(5);
+    newBoard.getAllRightHalfNums();
+    expect(newBoard.rightHalf).toHaveLength(50);
+  });
+});
+describe('shuffleLeftHalf', () => {
+  let newBoard = Gameboard();
+  test('returns a number from the leftHalf array', () => {
+    newBoard.splitGrid(5);
+    newBoard.getAllLeftHalfNums();
+    let num = newBoard.shuffleLeftHalf();
+    expect(newBoard.leftHalf.includes(num)).toBeTruthy();
   });
 });
 describe('checkForVerticalRestrictions', () => {
@@ -85,6 +103,15 @@ describe('checkForOverlap', () => {
       { location: [6, 7, 8] },
     ];
     let fourthShip = [3, 4, 5, 6];
+    expect(newBoard.checkForOverlap(arr, fourthShip)).toBeTruthy();
+  });
+  test('returns true if location value is greater than 99', () => {
+    let arr = [
+      { location: [1, 2] },
+      { location: [3, 4, 5] },
+      { location: [6, 7, 8] },
+    ];
+    let fourthShip = [79, 89, 99, 109];
     expect(newBoard.checkForOverlap(arr, fourthShip)).toBeTruthy();
   });
   test('returns false if both arrays do not have a duplicate', () => {
