@@ -29,7 +29,8 @@ h1 {
   margin: 10px auto;
   text-align: center;
 }
-.empty {
+.empty,
+.hidden {
   background-color: #0077b6;
 }
 .occupied {

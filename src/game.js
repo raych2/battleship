@@ -39,6 +39,9 @@ const Game = () => {
       if (boardArr[i] === '') {
         square.classList.add('empty');
         square.classList.add('square');
+      } else if (boardArr === computerBoard && boardArr[i] !== '') {
+        square.classList.add('hidden');
+        square.classList.add('square');
       } else {
         square.classList.add('occupied');
         square.classList.add('square');
