@@ -12,7 +12,6 @@ const Gameboard = () => {
   ];
   let fleet = [];
   let sunkenShips = [];
-  let missedAttacks = [];
 
   const renderBoard = () => {
     return board;
@@ -131,16 +130,15 @@ const Gameboard = () => {
   };
   const receiveAttack = (coords) => {
     for (let ship of fleet) {
-      for (let i = 0; i < ship.location.length; i++) {
-        if (ship.location[i] === coords) {
-          ship.hit(coords);
-          if (ship.isSunk()) {
-            sunkenShips.push(ship);
-          }
+      if (ship.location.indexOf(coords) >= 0) {
+        ship.hit(coords);
+        if (ship.isSunk()) {
+          sunkenShips.push(ship);
         }
+        return true;
       }
     }
-    missedAttacks.push(coords);
+    return false;
   };
   const checkAllSunk = () => {
     if (sunkenShips.length === fleet.length) {
@@ -152,7 +150,6 @@ const Gameboard = () => {
     board,
     fleet,
     sunkenShips,
-    missedAttacks,
     grid,
     gridSections,
     leftHalf,

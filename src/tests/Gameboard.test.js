@@ -152,9 +152,8 @@ describe('receiveAttack', () => {
     expect(secondShip.isSunk).toBeTruthy();
     expect(newBoard.sunkenShips).toHaveLength(1);
   });
-  test('missedAttacks collect all the missed hits', () => {
-    newBoard.receiveAttack(99);
-    expect(newBoard.missedAttacks).toContain(99);
+  test('returns falsy if hit is missed', () => {
+    expect(newBoard.receiveAttack(99)).toBeFalsy();
   });
 });
 describe('checkAllSunk', () => {
