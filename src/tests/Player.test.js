@@ -25,8 +25,9 @@ describe('Player', () => {
     humanBoard.placeShip();
     computer.computerAttack(humanBoard);
     for (let ship of humanBoard.fleet) {
-      if (ship.hits >= 1) {
+      if (ship.hits.length >= 1) {
         expect(ship.hits).toHaveLength(1);
+        expect(humanBoard.receiveAttack).toBeTruthy();
       }
     }
     expect(computer.attacks).toHaveLength(1);
