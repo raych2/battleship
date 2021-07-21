@@ -4,11 +4,11 @@ import getRandomCoordinate from '../helpers/getRandomCoordinate';
 const Gameboard = () => {
   let board = Array(100).fill('');
   let shipType = [
-    { name: 'patrolBoat', length: 2 },
-    { name: 'submarine', length: 3 },
-    { name: 'destroyer', length: 3 },
-    { name: 'battleship', length: 4 },
-    { name: 'carrier', length: 5 },
+    { name: 'Patrol Boat', length: 2 },
+    { name: 'Submarine', length: 3 },
+    { name: 'Destroyer', length: 3 },
+    { name: 'Battleship', length: 4 },
+    { name: 'Carrier', length: 5 },
   ];
   let fleet = [];
   let sunkenShips = [];
@@ -133,7 +133,7 @@ const Gameboard = () => {
       if (ship.location.indexOf(coords) >= 0) {
         ship.hit(coords);
         if (ship.isSunk()) {
-          sunkenShips.push(ship);
+          sunkenShips.push(ship.name);
         }
         return true;
       }
