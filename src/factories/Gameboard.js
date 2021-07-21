@@ -18,7 +18,7 @@ const Gameboard = () => {
   };
   const createFleet = () => {
     shipType.forEach((ship) => {
-      let newShip = Ship(ship.length);
+      let newShip = Ship(ship.name, ship.length);
       fleet.push(newShip);
     });
     return fleet;

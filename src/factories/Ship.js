@@ -1,4 +1,4 @@
-const Ship = (length) => {
+const Ship = (name, length) => {
   let direction;
   let location = [];
   let hits = [];
@@ -12,7 +12,7 @@ const Ship = (length) => {
     }
     return false;
   };
-  return { length, direction, location, hits, hit, isSunk };
+  return { name, length, direction, location, hits, hit, isSunk };
 };
 
 export default Ship;

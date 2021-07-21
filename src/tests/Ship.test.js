@@ -1,8 +1,11 @@
 import Ship from '../factories/Ship';
 
-let newShip = Ship(3);
+let newShip = Ship('submarine', 3);
 
 describe('Ship factory', () => {
+  test('ship should have a name', () => {
+    expect(newShip.name).toBe('submarine');
+  });
   test('ship length should be at least 2', () => {
     expect(newShip.length).toBeGreaterThanOrEqual(2);
   });
