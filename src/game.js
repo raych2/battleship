@@ -11,7 +11,7 @@ const Game = () => {
   const playerTwoBoard = document.querySelector('.computer-board');
   const humanBoard = human.board;
   const computerBoard = computer.board;
-  const playerTurn = document.querySelector('.turn');
+  const announcement = document.querySelector('.announcement');
   const start = document.querySelector('.start');
   let currentPlayer;
   let winner;
@@ -64,6 +64,52 @@ const Game = () => {
   renderGameBoard(computerBoard, playerTwoBoard);
 
   const squares = document.querySelectorAll('.square');
+
+  const play = (e) => {
+    currentPlayer = playerOne;
+    playerOne.attack(computer, Number(e.target.id));
+    if (!e.target.matches('.hidden')) {
+      e.target.innerText = 'X';
+    } else {
+      e.target.classList.add('hit');
+    }
+    e.target.removeEventListener('click', play);
+    findWinner();
+    currentPlayer = playerTwo;
+    let compTarget = document.getElementById(
+      `${playerTwo.computerAttack(human)}`
+    );
+    if (!compTarget.matches('.occupied')) {
+      compTarget.innerText = 'X';
+    } else {
+      compTarget.classList.add('hit');
+    }
+    compTarget.removeEventListener('click', play);
+    findWinner();
+    currentPlayer = playerOne;
+  };
+  const findWinner = () => {
+    if (human.checkAllSunk() === true) {
+      winner = playerTwo;
+      endGame();
+      announcement.style.display = 'block';
+      announcement.innerText = `Computer wins! Play again!`;
+    } else if (computer.checkAllSunk() === true) {
+      winner = playerOne;
+      endGame();
+      announcement.style.display = 'block';
+      announcement.innerText = `You win! Play again!`;
+    }
+  };
+  const endGame = () => {
+    squares.forEach((square) => {
+      square.removeEventListener('click', play);
+    });
+  };
+
+  squares.forEach((square) => {
+    square.addEventListener('click', play);
+  });
 };
 
 export default Game;

@@ -49,3 +49,9 @@ h1 {
 .occupied {
   background-color: #fff;
 }
+.hit {
+  background-color: #ce4257;
+}
+.announcement {
+  color: #fff;
+}
