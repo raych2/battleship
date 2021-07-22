@@ -46,17 +46,19 @@ const Game = () => {
     for (let i = 0; i < boardArr.length; i++) {
       let square = document.createElement('div');
       square.id = i;
-      if (boardArr[i] === '') {
+      if (boardArr === humanBoard && boardArr[i] === '') {
         square.classList.add('empty');
-        square.classList.add('square');
       } else if (boardArr === computerBoard && boardArr[i] !== '') {
         square.classList.add('hidden');
         square.classList.add('square');
+      } else if (boardArr === computerBoard && boardArr[i] === '') {
+        square.classList.add('empty');
+        square.classList.add('square');
       } else {
         square.classList.add('occupied');
-        square.classList.add('square');
       }
       boardOwner.append(square);
+      console.log(boardOwner);
     }
   };
   renderGameBoard(humanBoard, playerOneBoard);
