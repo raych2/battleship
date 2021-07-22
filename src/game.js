@@ -13,8 +13,10 @@ const Game = () => {
   const humanBoard = human.board;
   const computerBoard = computer.board;
   const announcement = document.querySelector('.announcement');
+  const playerOneSunken = document.getElementById('playerOneSunken');
+  const playerTwoSunken = document.getElementById('playerTwoSunken');
   const resetButton = document.querySelector('.reset');
-  let currentPlayer;
+  let currentPlayer = playerOne;
   let winner;
 
   human.createFleet();
@@ -40,8 +42,10 @@ const Game = () => {
   const renderGameBoard = (boardArr, boardOwner) => {
     if (boardArr === humanBoard) {
       boardNameOne.innerText = 'Your Board';
+      playerOneSunken.textContent = `Sunken ships:`;
     } else {
       boardNameTwo.innerText = 'Enemy Board';
+      playerTwoSunken.textContent = `Sunken ships:`;
     }
     for (let i = 0; i < boardArr.length; i++) {
       let square = document.createElement('div');
@@ -58,7 +62,6 @@ const Game = () => {
         square.classList.add('occupied');
       }
       boardOwner.append(square);
-      console.log(boardOwner);
     }
   };
   renderGameBoard(humanBoard, playerOneBoard);
@@ -67,27 +70,42 @@ const Game = () => {
   const squares = document.querySelectorAll('.square');
 
   const play = (e) => {
-    currentPlayer = playerOne;
-    playerOne.attack(computer, Number(e.target.id));
-    if (!e.target.matches('.hidden')) {
-      e.target.innerText = 'X';
+    if (currentPlayer === playerOne) {
+      playerOne.attack(computer, Number(e.target.id));
+      if (!e.target.matches('.hidden')) {
+        e.target.innerText = 'X';
+      } else {
+        e.target.classList.add('hit');
+      }
+      e.target.removeEventListener('click', play);
+      announceSunkenShip(computer.sunkenShips);
+      findWinner();
+      currentPlayer = playerTwo;
     } else {
-      e.target.classList.add('hit');
+      let compTarget = document.getElementById(
+        `${playerTwo.computerAttack(human)}`
+      );
+      if (!compTarget.matches('.occupied')) {
+        compTarget.innerText = 'X';
+      } else {
+        compTarget.classList.add('hit');
+      }
+      compTarget.removeEventListener('click', play);
+      announceSunkenShip(human.sunkenShips);
+      findWinner();
+      currentPlayer = playerOne;
     }
-    e.target.removeEventListener('click', play);
-    findWinner();
-    currentPlayer = playerTwo;
-    let compTarget = document.getElementById(
-      `${playerTwo.computerAttack(human)}`
-    );
-    if (!compTarget.matches('.occupied')) {
-      compTarget.innerText = 'X';
+  };
+  const announceSunkenShip = (sunkenShips) => {
+    if (sunkenShips === human.sunkenShips) {
+      playerOneSunken.textContent = `Sunken ships: ${human.sunkenShips.join(
+        ', '
+      )}`;
     } else {
-      compTarget.classList.add('hit');
+      playerTwoSunken.textContent = `Sunken ships: ${computer.sunkenShips.join(
+        ', '
+      )}`;
     }
-    compTarget.removeEventListener('click', play);
-    findWinner();
-    currentPlayer = playerOne;
   };
   const findWinner = () => {
     if (human.checkAllSunk() === true) {
@@ -114,6 +132,8 @@ const Game = () => {
     boardNameTwo.innerText = '';
     playerOneBoard.replaceChildren();
     playerTwoBoard.replaceChildren();
+    playerOneSunken.textContent = '';
+    playerTwoSunken.textContent = '';
   };
   const resetGame = (e) => {
     clearGameboards();
