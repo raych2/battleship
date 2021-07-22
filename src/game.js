@@ -6,13 +6,14 @@ const Game = () => {
   const playerTwo = Player('computer');
   const human = Gameboard();
   const computer = Gameboard();
-
+  const boardNameOne = document.getElementById('playerOne');
+  const boardNameTwo = document.getElementById('playerTwo');
   const playerOneBoard = document.querySelector('.human-board');
   const playerTwoBoard = document.querySelector('.computer-board');
   const humanBoard = human.board;
   const computerBoard = computer.board;
   const announcement = document.querySelector('.announcement');
-  const start = document.querySelector('.start');
+  const resetButton = document.querySelector('.reset');
   let currentPlayer;
   let winner;
 
@@ -37,8 +38,6 @@ const Game = () => {
   addShipsToBoard(computerBoard, computer);
 
   const renderGameBoard = (boardArr, boardOwner) => {
-    const boardNameOne = document.getElementById('playerOne');
-    const boardNameTwo = document.getElementById('playerTwo');
     if (boardArr === humanBoard) {
       boardNameOne.innerText = 'Your Board';
     } else {
@@ -105,11 +104,26 @@ const Game = () => {
     squares.forEach((square) => {
       square.removeEventListener('click', play);
     });
+    resetButton.style.display = 'block';
+  };
+  //removes names and all child nodes from gameboards
+  const clearGameboards = () => {
+    boardNameOne.innerText = '';
+    boardNameTwo.innerText = '';
+    playerOneBoard.replaceChildren();
+    playerTwoBoard.replaceChildren();
+  };
+  const resetGame = (e) => {
+    clearGameboards();
+    Game();
+    announcement.style.display = 'none';
+    resetButton.style.display = 'none';
   };
 
   squares.forEach((square) => {
     square.addEventListener('click', play);
   });
+  resetButton.addEventListener('click', resetGame);
 };
 
 export default Game;

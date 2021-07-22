@@ -1,10 +1,16 @@
 import Game from './game';
 import './style.css';
 
-const button = document.querySelector('.start');
+const startButton = document.querySelector('.start');
+const resetButton = document.querySelector('.reset');
+const announcement = document.querySelector('.announcement');
+
+resetButton.style.display = 'none';
+
 const initialize = (e) => {
   Game();
-  e.target.removeEventListener('click', initialize);
-  button.style.display = 'none';
+  announcement.style.display = 'none';
+  startButton.style.display = 'none';
 };
-button.addEventListener('click', initialize);
+
+startButton.addEventListener('click', initialize);
