@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&family=Tourney&display=swap');
 *,
 *:before,
 *:after {
@@ -15,13 +16,18 @@ body {
 }
 h1 {
   margin-top: 20px;
+  font: 4rem 'Tourney', cursive;
   text-align: center;
   color: #fff;
+}
+button {
+  font: 100 1rem 'Roboto', sans-serif;
 }
 .game-container {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
+  font: 100 1rem 'Roboto', sans-serif;
 }
 .player {
   display: flex;
@@ -45,6 +51,7 @@ h1 {
 .empty,
 .hidden {
   background-color: #0077b6;
+  font-size: 2em;
 }
 .occupied {
   background-color: #fff;
@@ -53,6 +60,7 @@ h1 {
   background-color: #ce4257;
 }
 .announcement {
+  font: 300 1.5rem 'Roboto', sans-serif;
   color: #fff;
 }
 .sunken {
