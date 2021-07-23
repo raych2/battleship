@@ -26,8 +26,8 @@ button {
   padding: 10px;
   text-align: center;
   color: #fff;
-  background-color: #ADB5BD;
-  border-color: #ADB5BD;
+  background-color: #adb5bd;
+  border-color: #adb5bd;
   font: 100 1rem 'Roboto', sans-serif;
 }
 .game-container {
@@ -41,7 +41,7 @@ button {
   flex-flow: column nowrap;
   align-items: center;
 }
-.board-name, .sunken {
+.board-name {
   color: #fff;
 }
 .human-board,
@@ -61,7 +61,7 @@ button {
   font-size: 2em;
 }
 .occupied {
-  background-color: #ADB5BD;
+  background-color: #adb5bd;
 }
 .hit {
   background-color: #ce4257;
@@ -73,4 +73,29 @@ button {
 }
 .square:hover {
   border: 2px solid #ce4257;
+}
+.sunken {
+  margin-bottom: 15px;
+  color: #fff;
+}
+@media (max-width: 688px) {
+  h1 {
+    font-size: 3em;
+  }
+  .game-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    align-content: space-around;
+    justify-content: center;
+  }
+  .human-board,
+  .computer-board {
+    max-height: auto;
+    max-width: 80%;
+  }
+  .sunken {
+    margin-bottom: 10px;
+    max-width: 75%;
+  }
 }
