@@ -41,7 +41,7 @@ button {
   flex-flow: column nowrap;
   align-items: center;
 }
-.board-name {
+.board-name, .sunken {
   color: #fff;
 }
 .human-board,
@@ -71,6 +71,6 @@ button {
   font: 300 1.5rem 'Roboto', sans-serif;
   color: #fff;
 }
-.sunken {
-  color: #fff;
+.square:hover {
+  border: 2px solid #ce4257;
 }
