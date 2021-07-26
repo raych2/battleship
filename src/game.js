@@ -16,7 +16,6 @@ const Game = () => {
   const playerOneSunken = document.getElementById('playerOneSunken');
   const playerTwoSunken = document.getElementById('playerTwoSunken');
   const resetButton = document.querySelector('.reset');
-  let currentPlayer = playerOne;
   let winner;
 
   human.createFleet();
@@ -70,31 +69,25 @@ const Game = () => {
   const squares = document.querySelectorAll('.square');
 
   const play = (e) => {
-    if (currentPlayer === playerOne) {
-      playerOne.attack(computer, Number(e.target.id));
-      if (!e.target.matches('.hidden')) {
-        e.target.innerText = 'X';
-      } else {
-        e.target.classList.add('hit');
-      }
-      e.target.removeEventListener('click', play);
-      announceSunkenShip(computer.sunkenShips);
-      findWinner();
-      currentPlayer = playerTwo;
+    playerOne.attack(computer, Number(e.target.id));
+    if (!e.target.matches('.hidden')) {
+      e.target.innerText = 'X';
     } else {
-      let compTarget = document.getElementById(
-        `${playerTwo.computerAttack(human)}`
-      );
-      if (!compTarget.matches('.occupied')) {
-        compTarget.innerText = 'X';
-      } else {
-        compTarget.classList.add('hit');
-      }
-      compTarget.removeEventListener('click', play);
-      announceSunkenShip(human.sunkenShips);
-      findWinner();
-      currentPlayer = playerOne;
+      e.target.classList.add('hit');
     }
+    e.target.removeEventListener('click', play);
+    announceSunkenShip(computer.sunkenShips);
+    findWinner();
+    let compTarget = document.getElementById(
+      `${playerTwo.computerAttack(human)}`
+    );
+    if (!compTarget.matches('.occupied')) {
+      compTarget.innerText = 'X';
+    } else {
+      compTarget.classList.add('hit');
+    }
+    announceSunkenShip(human.sunkenShips);
+    findWinner();
   };
   const announceSunkenShip = (sunkenShips) => {
     if (sunkenShips === human.sunkenShips) {
@@ -119,6 +112,7 @@ const Game = () => {
       announcement.style.display = 'block';
       announcement.innerText = `You win! Play again!`;
     }
+    return winner;
   };
   const endGame = () => {
     squares.forEach((square) => {
