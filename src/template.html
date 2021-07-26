@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <div class="game-header">
+      <h1>Battleship</h1>
+      <button type="button" class="start">Start Game</button>
+      <button type="button" class="reset">Reset Game</button>
+      <div class="announcement"></div>
+      <div class="winner"></div>
+    </div>
+    <div class="game-container">
+      <div class="player">
+        <div class="board-name" id="playerOne"></div>
+        <div class="human-board"></div>
+        <div class="sunken" id="playerOneSunken"></div>
+      </div>
+      <div class="player">
+        <div class="board-name" id="playerTwo"></div>
+        <div class="computer-board"></div>
+        <div class="sunken" id="playerTwoSunken"></div>
+      </div>
+    </div>
+  </body>
+</html>
