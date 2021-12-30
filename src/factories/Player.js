@@ -7,6 +7,9 @@ const Player = (type) => {
   };
   const computerAttack = (enemy) => {
     let num = getRandomCoordinate(0, 99);
+    while (attacks.includes(num)) {
+      num = getRandomCoordinate(0, 99);
+    }
     if (!attacks.includes(num)) {
       enemy.receiveAttack(num);
       attacks.push(num);

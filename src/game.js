@@ -77,7 +77,6 @@ const Game = () => {
     }
     e.target.removeEventListener('click', play);
     announceSunkenShip(computer.sunkenShips);
-    findWinner();
     let compTarget = document.getElementById(
       `${playerTwo.computerAttack(human)}`
     );
