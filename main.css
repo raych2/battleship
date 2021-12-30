@@ -1,0 +1,104 @@
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&family=Tourney&display=swap);
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #000;
+}
+.game-header {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+h1 {
+  margin-top: 20px;
+  font: 4rem 'Tourney', cursive;
+  text-align: center;
+  color: #fff;
+}
+button {
+  margin: 20px 0;
+  border-radius: 3px;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  background-color: #adb5bd;
+  border-color: #adb5bd;
+  font: 100 1rem 'Roboto', sans-serif;
+}
+.game-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  font: 100 1rem 'Roboto', sans-serif;
+}
+.player {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+.board-name {
+  color: #fff;
+}
+.human-board,
+.computer-board {
+  display: grid;
+  grid-template-rows: repeat(10, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  grid-gap: 1px;
+  height: 450px;
+  width: 450px;
+  margin: 10px auto;
+  text-align: center;
+}
+.empty,
+.hidden {
+  background-color: #0077b6;
+  font-size: 2em;
+}
+.occupied {
+  background-color: #adb5bd;
+}
+.hit {
+  background-color: #ce4257;
+}
+.announcement {
+  margin: 0 auto 5px auto;
+  font: 300 1.5rem 'Roboto', sans-serif;
+  color: #fff;
+}
+.square:hover {
+  border: 2px solid #ce4257;
+}
+.sunken {
+  margin-bottom: 15px;
+  color: #fff;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  h1 {
+    font-size: 3em;
+  }
+  .game-container {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    align-content: space-around;
+    justify-content: center;
+  }
+  .human-board,
+  .computer-board {
+    max-height: auto;
+    max-width: 80%;
+  }
+  .sunken {
+    margin-bottom: 10px;
+    max-width: 75%;
+  }
+}
+
+
+/*# sourceMappingURL=main.css.map*/
